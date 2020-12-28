@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/sofiukl/s3-uploader/utils"
 
@@ -14,6 +15,7 @@ import (
 )
 
 func main() {
+	start := time.Now()
 	if len(os.Args) != 3 {
 		panic("please pass argument source and foldername")
 	}
@@ -38,6 +40,7 @@ func main() {
 
 	// read files
 	readDir(source, folderName, sess, config)
+	fmt.Printf("upload took %v\n", time.Since(start))
 }
 
 func readDir(source string, folderName string, sess *awsSession.Session, config utils.Config) {
